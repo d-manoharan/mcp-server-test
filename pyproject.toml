@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "supabase-postgres-mcp"
+version = "1.0.0"
+description = "A FastMCP server that exposes a Supabase Postgres database to MCP clients."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "d-manoharan" }]
+keywords = ["mcp", "fastmcp", "supabase", "postgres", "database"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Database",
+]
+dependencies = [
+  "fastmcp>=4.2.3,<5",
+  "psycopg[binary,pool]>=3.3.9,<4",
+  "python-dotenv>=1.2.4,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=9.2,<10",
+  "pytest-asyncio>=1.3,<2",
+]
+
+[project.scripts]
+supabase-postgres-mcp = "supabase_postgres_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/supabase_postgres_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
